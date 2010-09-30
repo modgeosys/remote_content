@@ -2,7 +2,6 @@ require 'net/http'
 require 'net/https'
 require 'open-uri'
 require 'hpricot'
-require 'ruby-debug'
 
 module Meteor
   module Widget
