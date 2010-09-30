@@ -26,34 +26,10 @@ module Meteor
         
         def absolutize(url, body, remote_dom_id = nil, partial = nil)
           document = Hpricot(body)
-          (document/"img").each do |img|
-            source = img.attributes['src']
-            if source !~ /\Ahttp:\/\//
-              img.attributes['src'] = "#{url}" + source
-            end
-          end
-          (document/"script").each do |script|
-            source = script.attributes['src']
-            if source !~ /\Ahttp:\/\//
-              script.attributes['src'] = "#{url}" + source
-            end
-          end
-          (document/"link").each do |link|
-            href = link.attributes['href']
-            if href !~ /\Ahttp:\/\//
-              link.attributes['href'] = "#{url}" + href
-            end
-          end
-          (document/"a").each do |a|
-            href = a.attributes['href']
-            if href !~ /\Ahttp:\/\//
-              a.attributes['href'] = "#{url}" + href
-            end
-          end
-          (document/"form").each do |form|
-            action = form.attributes['action']
-            if action !~ /\Ahttp:\/\//
-              form.attributes['action'] = "#{url}" + action
+          {:img => 'src', :script => 'src', :link => 'href', :a => 'href', :form => 'action'}.each do |tag_name, attribute_name|
+            (document/tag_name).each do |tag|
+              attribute = tag.attributes[attribute_name]
+              attribute = ("#{url}" + attribute) if attribute !~ /\Ahttp:\/\//
             end
           end
           (document/(remote_dom_id)).first.inner_html = @template.render(:partial => partial) if remote_dom_id && partial
