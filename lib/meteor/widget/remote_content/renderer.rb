@@ -29,7 +29,7 @@ module Meteor
           {:img => 'src', :script => 'src', :link => 'href', :a => 'href', :form => 'action'}.each do |tag_name, attribute_name|
             (document/tag_name).each do |tag|
               attribute = tag.attributes[attribute_name]
-              attribute = ("#{url}" + attribute) if attribute !~ /\Ahttp:\/\//
+              tag.attributes[attribute_name] = ("#{url}" + attribute) if attribute !~ /\Ahttp:\/\//
             end
           end
           (document/(remote_dom_id)).first.inner_html = @template.render(:partial => partial) if remote_dom_id && partial
