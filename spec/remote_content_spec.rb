@@ -7,7 +7,7 @@ describe ::Meteor::Widget::RemoteContent::Spec do
     before(:all) do
       @content = ::Meteor::Widget::RemoteContent::Spec.new(:url           => "http://www.aura-software.com",
                                                            :remote_dom_id => ".section.content-body",
-                                                           :partial       => "remote_content/templates/remote_content/test.rhtml").render
+                                                           :partial       => "remote_content/templates/test/hello_world.rhtml").render
     end
   
     it "should render the specified remote content" do
