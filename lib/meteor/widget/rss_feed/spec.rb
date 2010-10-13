@@ -20,6 +20,8 @@ module Meteor
         end
         
         attr_accessor :url
+        attr_accessor :linkify
+        attr_accessor :reverse
 
         def initialize(options={},&block)
           super(options,&block)

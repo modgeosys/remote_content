@@ -1,1 +1,11 @@
-<ul><br/><%= renderer.content.items.reverse.map {|item| '<li>' + h(item.title.content) + '</li>'} -%></ul>
+<ul>
+  <br/>
+<% _items = renderer.content.items 
+   items = (spec.reverse ? _items.reverse : _items) -%>
+<% items.map do |item| -%> 
+  <li>
+    <%= (spec.linkify ? "<a href=\"#{item.link.href}\">" : '') -%>
+    <%= h(item.title.content) -%> 
+    <%= (spec.linkify ? "</a>" : '') -%>
+  </li>
+<% end -%>
